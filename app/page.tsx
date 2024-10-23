@@ -1,22 +1,43 @@
 "use client";
-
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import HomePage from './pages/home/home';
-import TodoListPage from './pages/todolist/todolist';
+import { HashRouter as Router, Routes, Route } from 'react-router-dom';
 import Header from "./components/header/header";
 import Footer from "./components/footer/footer";
 import React from 'react';
-import NotFoundPage from './pages/notFound/notFound';
 import { QueryClient, QueryClientProvider } from 'react-query';
-import AboutPage from './pages/about/about';
-import ContactPage from './pages/contact/contact';
+import dynamic from 'next/dynamic'
 
 const queryClient = new QueryClient();
 
+const TodoListPage = dynamic(
+  () => import('./pages/todolist/todolist'),
+  { ssr: false }
+)
+
+const NotFoundPage = dynamic(
+  () => import('./pages/notFound/notFound'),
+  { ssr: false }
+)
+
+const AboutPage = dynamic(
+  () => import('./pages/about/about'),
+  { ssr: false }
+)
+
+const ContactPage = dynamic(
+  () => import('./pages/contact/contact'),
+  { ssr: false }
+)
+
+const HomePage = dynamic(
+  () => import('./pages/home/home'),
+  { ssr: false }
+)
+
 const  App = () =>  {
+ 
   return (
     <>
-      <Router>
+      <Router >
         <Header/>
       <QueryClientProvider client={queryClient}>
         <Routes>
