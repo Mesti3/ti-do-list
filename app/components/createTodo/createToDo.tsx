@@ -25,10 +25,8 @@ interface TodoListItemCompProps {
 }
 
 export const CreateTodoForm: React.FC<TodoListItemCompProps> = ({ lists }) => {
-  // State for selected list ID
   const [selectedListId, setSelectedListId] = useState<string>(lists[lists.length - 1]?.id ?? "");
 
-  // Hooks for managing todo item and todo list
   const { createItemMutation } = useTodoItem(selectedListId);
   const { createListMutation } = useTodoList();
 
@@ -52,7 +50,6 @@ export const CreateTodoForm: React.FC<TodoListItemCompProps> = ({ lists }) => {
     resolver: zodResolver(schemaList),
   });
 
-  // Handle submission of a new todo item
   const onSubmitItem = (data: FormDataItem) => {
     createItemMutation.mutate({
       listId: selectedListId,
@@ -68,12 +65,11 @@ export const CreateTodoForm: React.FC<TodoListItemCompProps> = ({ lists }) => {
   const onSubmitList = (data: FormDataList) => {
     createListMutation.mutate( data.title , {
       onSuccess: () => {
-        resetListForm(); // Reset the form on success
+        resetListForm();
       }
     });
   };
 
-  // Effect to reset form and handle successful item creation
   useEffect(() => {
     if (createItemMutation.isSuccess) {
       resetItemForm();

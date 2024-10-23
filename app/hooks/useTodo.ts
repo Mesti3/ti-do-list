@@ -6,11 +6,11 @@ export const useTodoItem = (listId: string)=> {
     const queryClient = useQueryClient();
 
     const { data: todoItems } = useQuery(['todoListItemsById', listId], async () => {
-        if (!listId) return []; // Prevent fetching if listId is not provided
+        if (!listId) return [];
         const items = await geTodoListItem(listId);
         return items;
     }, {
-        enabled: !!listId, // Only run the query if listId is truthy
+        enabled: !!listId, 
     });
 
     const createItemMutation = useMutation(

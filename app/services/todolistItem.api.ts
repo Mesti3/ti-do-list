@@ -7,7 +7,7 @@ const api = axios.create({
 
 export const geTodoListItem = async (listId: string): Promise<TodoItem[] | null> => { 
     try {
-        const res: AxiosResponse<any, any> = await api.get(`todolist/${listId}/todolistItem`);
+        const res: AxiosResponse<unknown, unknown> = await api.get(`todolist/${listId}/todolistItem`);
         return res.data as TodoItem[];
     } catch (error) {
         console.error('Error fetching todo list:', error);

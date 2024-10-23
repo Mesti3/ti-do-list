@@ -1,6 +1,6 @@
 "use client";
 
-import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import HomePage from './pages/home/home';
 import TodoListPage from './pages/todolist/todolist';
 import Header from "./components/header/header";

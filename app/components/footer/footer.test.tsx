@@ -5,10 +5,9 @@ import Footer from './footer';
 
 describe('Footer Component', () => {
   test('renders footer content correctly', () => {
-    // Render the Footer component
+
     render(<Footer />);
 
-    // Check if the text "All Rights Reserved." is in the document
     expect(screen.getByText(/All Rights Reserved/i)).toBeInTheDocument();
 
     // Check for the presence of the "About" link

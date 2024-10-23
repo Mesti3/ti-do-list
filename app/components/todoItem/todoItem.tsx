@@ -1,9 +1,9 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { TodoItem } from "../../interfaces/interface";
 
 interface TodoItemCompProps {
-  item: TodoItem; // This specifies that 'item' prop is required and should be of type 'TodoItem'
-  handleItemToggle: (itemId: string,completed: boolean) => void; // Function to toggle item selection
+  item: TodoItem;
+  handleItemToggle: (itemId: string,completed: boolean) => void; 
   handleDeleteItem: (itemId: string) => void;
 }
 
@@ -25,8 +25,8 @@ export const TodoItemComp: React.FC<TodoItemCompProps> = ({ item, handleItemTogg
       <td className="px-6 py-4" >
         <input
           type="checkbox"
-          checked={item.completed} // Checked state is based on 'isSelected'
-          onChange={() => handleItemToggle(item.id,item.completed)} // Toggle selection
+          checked={item.completed} 
+          onChange={() => handleItemToggle(item.id,item.completed)} 
         />
       </td>
       <td className="px-6 py-4 text-right">

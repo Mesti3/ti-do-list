@@ -4,7 +4,6 @@ import { CreateTodoForm } from './createToDo';
 import { useTodoItem, useTodoList } from '../../hooks/useTodo';
 import React from 'react';
 
-// Mock the hooks
 jest.mock('../../hooks/useTodo');
 
 const mockUseTodoItem = useTodoItem as jest.Mock;
@@ -53,10 +52,8 @@ describe('CreateTodoForm', () => {
   it('validates form and shows error when submitting empty item form', async () => {
     render(<CreateTodoForm lists={sampleLists} />);
 
-    // Click submit without filling in the form
     fireEvent.click(screen.getByText('Save Item'));
 
-    // Assert validation error message
     expect(await screen.findByText('Title is required')).toBeInTheDocument();
   });
 
@@ -95,14 +92,12 @@ describe('CreateTodoForm', () => {
   it('calls createListMutation when submitting a valid todo list', async () => {
     render(<CreateTodoForm lists={sampleLists} />);
 
-    // Fill out the form
     fireEvent.change(screen.getByPlaceholderText('List Title'), {
       target: { value: 'New List' },
     });
 
     fireEvent.click(screen.getByText('Save List'));
 
-    // Wait for the list mutation to be called
     await waitFor(() =>
       expect(mockCreateListMutation.mutate).toHaveBeenCalledWith('New List', expect.anything())
     );

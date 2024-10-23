@@ -13,20 +13,17 @@ export const TodoListComp: React.FC<TodoListItemCompProps> = ({ lists }) => {
   const [todoListItem, settodoListItem] = useState<TodoItem[]>(todoItems ?? []);
   const [searchTerm, setSearchTerm] = useState<string>("");
 
-  // New state for filtering tasks by type
   const [filterType, setFilterType] = useState<string>("all");
 
   useEffect(() => {
       settodoListItem(todoItems ?? []);
   }, [selectedListId,todoItems]);
 
-  // Filter items based on search term and filter type
   const filteredItems = todoListItem.filter(item => {
     const matchesSearchTerm =
       item.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
       item.description?.toLowerCase().includes(searchTerm.toLowerCase());
 
-    // Apply type filtering based on the filterType
     if (filterType === "all") return matchesSearchTerm;
     if (filterType === "done") return matchesSearchTerm && item.completed;
     if (filterType === "onGoing") return matchesSearchTerm && !item.completed;
@@ -34,11 +31,9 @@ export const TodoListComp: React.FC<TodoListItemCompProps> = ({ lists }) => {
     return matchesSearchTerm;
   });
 
-  // Separate filtered items into checked and unchecked items for rendering
   const uncheckedItems = filteredItems.filter(item => !item.completed);
   const checkedItems = filteredItems.filter(item => item.completed);
 
-  // Toggle individual item selection
   const handleItemToggle = (itemId: string, completed: boolean) => {
     updateItemMutation.mutate({
       listId: selectedListId,
@@ -78,7 +73,7 @@ export const TodoListComp: React.FC<TodoListItemCompProps> = ({ lists }) => {
               className="block w-full p-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               placeholder="Search"
               value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)} // Update search term on input change
+              onChange={(e) => setSearchTerm(e.target.value)}
               required
             />
           </div>
@@ -104,8 +99,8 @@ export const TodoListComp: React.FC<TodoListItemCompProps> = ({ lists }) => {
           <label htmlFor="filter-type-select" className="mr-2">Select Type:</label>
           <select
             id="filter-type-select"
-            value={filterType} // Bind to the filterType state
-            onChange={(e) => setFilterType(e.target.value)} // Update the filter type on change
+            value={filterType} 
+            onChange={(e) => setFilterType(e.target.value)} 
             className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
           >
             <option value="all">All</option>
