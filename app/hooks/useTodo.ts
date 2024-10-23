@@ -1,6 +1,6 @@
 import { useMutation, useQuery, useQueryClient } from "react-query"
 import { createTodoItem, deleteTodoItem,geTodoListItem,updateTodoItem } from "../services/todolistItem.api";
-import {createTodoList,deleteTodoList,geTodoList} from '../services/todolist.api';
+import {createTodoList,geTodoList} from '../services/todolist.api';
 
 export const useTodoItem = (listId: string)=> {
     const queryClient = useQueryClient();
@@ -56,19 +56,11 @@ export const useTodoList = () => {
             queryClient.invalidateQueries('todoListItem');
         }
     });
-
-    const deleteListMutation = useMutation(
-        async ({ itemId}: { itemId: string}) => await  deleteTodoList( itemId), {
-        onSuccess: () =>{
-            queryClient.invalidateQueries('todoListItem')
-        }
-    })
     
       return {
         todoLists,
         error,
         isLoading,
         createListMutation,
-        deleteListMutation,
       };
 }

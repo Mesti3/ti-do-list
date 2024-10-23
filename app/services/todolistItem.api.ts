@@ -11,7 +11,7 @@ export const geTodoListItem = async (listId: string): Promise<TodoItem[] | null>
         return res.data as TodoItem[];
     } catch (error) {
         console.error('Error fetching todo list:', error);
-        return null;  // or you can throw an error if you want to handle it upstream
+        return null; 
     }
 };
 

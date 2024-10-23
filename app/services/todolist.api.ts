@@ -25,11 +25,3 @@ export const createTodoList = async (title: string): Promise<void> => {
         console.error('Error creating todo item:', error);
     }
 };
-
-export const deleteTodoList = async (listId: string): Promise<void> => {
-    try {
-        await api.delete(`todolist/${listId}`);
-    } catch (error) {
-        console.error('Error deleting todo item:', error);
-    }
-};
