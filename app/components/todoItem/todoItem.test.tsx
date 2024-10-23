@@ -1,8 +1,8 @@
 import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
-import '@testing-library/jest-dom'; // Provides extra matchers for assertions
-import { TodoItemComp } from './todoItem'; // Adjust the import path if necessary
-import { TodoItem } from '../../interfaces/interface'; // Adjust import path if necessary
+import '@testing-library/jest-dom'; 
+import { TodoItemComp } from './todoItem'; 
+import { TodoItem } from '../../interfaces/interface'; 
 
 const mockItem: TodoItem = {
   id: '1',

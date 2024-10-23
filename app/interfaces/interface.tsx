@@ -3,10 +3,10 @@ export interface TodoList {
   title: string;
 }
 
-  export interface TodoItem {
-    title: string;
-    description: string;
-    deadline: string;
-    completed: boolean;
-    id: string;
-  }
+export interface TodoItem {
+  title: string;
+  description: string;
+  deadline: string;
+  completed: boolean;
+  id: string;
+}

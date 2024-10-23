@@ -1,3 +1,4 @@
+"use client";
 import { TodoItemComp } from "../todoItem/todoItem";
 import React, { useEffect, useState } from "react";
 import { TodoItem, TodoList } from '../../interfaces/interface';
@@ -9,15 +10,20 @@ interface TodoListItemCompProps {
 
 export const TodoListComp: React.FC<TodoListItemCompProps> = ({ lists }) => {
   const [selectedListId, setSelectedListId] = useState<string>(lists[lists.length - 1]?.id ?? "");
-  const { deleteItemMutation, updateItemMutation, todoItems } = useTodoItem(selectedListId);
-  const [todoListItem, settodoListItem] = useState<TodoItem[]>(todoItems ?? []);
   const [searchTerm, setSearchTerm] = useState<string>("");
+  const { deleteItemMutation, updateItemMutation, todoItems } = useTodoItem(selectedListId);
 
+
+  const [todoListItem, settodoListItem] = useState<TodoItem[]>(todoItems ?? []);
   const [filterType, setFilterType] = useState<string>("all");
 
   useEffect(() => {
+    if (typeof document !== "undefined") {
+
+  // const { todoItems } =  useTodoItem(selectedListId);
       settodoListItem(todoItems ?? []);
-  }, [selectedListId,todoItems]);
+    }
+  }, [selectedListId]);
 
   const filteredItems = todoListItem.filter(item => {
     const matchesSearchTerm =

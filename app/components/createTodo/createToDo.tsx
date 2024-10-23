@@ -1,3 +1,4 @@
+"use client";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
@@ -71,7 +72,7 @@ export const CreateTodoForm: React.FC<TodoListItemCompProps> = ({ lists }) => {
   };
 
   useEffect(() => {
-    if (createItemMutation.isSuccess) {
+    if (typeof document !== "undefined" && createItemMutation.isSuccess) {
       resetItemForm();
       console.log("Todo item created successfully!");
     }

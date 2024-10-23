@@ -1,3 +1,4 @@
+"use client";
 import { TodoListComp } from '../../components/todoList/todoList';
 import { useTodoList } from '../../hooks/useTodo';
 import React from 'react';
