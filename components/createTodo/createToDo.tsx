@@ -26,10 +26,14 @@ interface TodoListItemCompProps {
 }
 
 export const CreateTodoForm: React.FC<TodoListItemCompProps> = ({ lists }) => {
-  const [selectedListId, setSelectedListId] = useState<string>(lists[lists.length - 1]?.id ?? "");
+  const [selectedListId, setSelectedListId] = useState<string>(lists[lists.length - 1]?.id);
 
   const { createItemMutation } = useTodoItem(selectedListId);
   const { createListMutation } = useTodoList();
+
+  useEffect(() => {
+    setSelectedListId(lists[lists.length - 1]?.id)
+}, [selectedListId,lists]);
 
   // Form hook for creating a new  item
   const {

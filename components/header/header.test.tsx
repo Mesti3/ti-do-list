@@ -1,30 +1,40 @@
-import React from 'react';
 import { render, screen } from '@testing-library/react';
-import '@testing-library/jest-dom'; // for extended matchers like "toBeInTheDocument"
-import { BrowserRouter } from 'react-router-dom'; // for routing
-import Header from './header';
+import '@testing-library/jest-dom';
+import Header from './header'; 
+import { useRouter } from 'next/router';
 
-describe('Header Component', () => {
-  test('renders navigation links correctly', () => {
-    // Render the Header component inside a BrowserRouter
-    render(
-      <BrowserRouter>
-        <Header />
-      </BrowserRouter>
-    );
+// Mock Next.js useRouter hook
+jest.mock('next/router', () => ({
+  useRouter: jest.fn(),
+}));
 
-    // Check for the presence of the Home link
+describe('Header', () => {
+  beforeEach(() => {
+    (useRouter as jest.Mock).mockReturnValue({
+      route: '/',
+      pathname: '/',
+      query: {},
+      asPath: '/',
+    });
+  });
+
+  it('renders all navigation links correctly', () => {
+    render(<Header />);
+
+    // Check if the "Home" link is present and correct
     const homeLink = screen.getByText('Home');
     expect(homeLink).toBeInTheDocument();
     expect(homeLink).toHaveAttribute('href', '/');
 
-    const todoLink = screen.getByText('Create item');
-    expect(todoLink).toBeInTheDocument();
-    expect(todoLink).toHaveAttribute('href', '/todo');
+   const todoListLink = screen.getByText('Create item');
+    expect(todoListLink).toBeInTheDocument();
+    expect(todoListLink).toHaveAttribute('href', '/todolist');
+
 
     const aboutLink = screen.getByText('About');
     expect(aboutLink).toBeInTheDocument();
     expect(aboutLink).toHaveAttribute('href', '/about');
+
 
     const privacyPolicyLink = screen.getByText('Privacy Policy');
     expect(privacyPolicyLink).toBeInTheDocument();

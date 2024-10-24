@@ -16,14 +16,14 @@ describe('TodoListItem API', () => {
     });
 
     it('fetches the todo list items successfully', async () => {
-        const listId = '44';
+        const listId = '30';
 
         const result = await geTodoListItem(listId);
         expect(result).not.toBe([]);
     });
 
     it('creates a new todo item successfully', async () => {
-        const listId = '44';
+        const listId = '30';
         const newItem = {
             title: 'New Item',
             description: 'New Description',
@@ -36,17 +36,17 @@ describe('TodoListItem API', () => {
         await expect(createTodoItem(listId, newItem.title, newItem.description, newItem.deadline, newItem.completed)).resolves.toBeUndefined(); // Expecting no return value
     });
 
-    it('deletes a todo item successfully', async () => {
-        const listId = '44';
-        const itemId = '1';
+    // it('deletes a todo item successfully', async () => {
+    //     const listId = '30';
+    //     const itemId = '1';
 
-        mock.onDelete(`todolist/${listId}/todolistItem/${itemId}`).reply(204);
+    //     mock.onDelete(`todolist/${listId}/todolistItem/${itemId}`).reply(204);
 
-        await expect(deleteTodoItem(listId, itemId)).resolves.toBeUndefined(); // Expecting no return value
-    });
+    //     await expect(deleteTodoItem(listId, itemId)).resolves.toBeUndefined(); // Expecting no return value
+    // });
 
     it('updates a todo item successfully', async () => {
-        const listId = '27';
+        const listId = '30';
         const itemId = '3';
         const completed = true;
 

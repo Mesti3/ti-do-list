@@ -11,15 +11,14 @@ export const geTodoList = async (): Promise<TodoList[] | null> => {
         return res.data as TodoList[];
     } catch (error) {
         console.error('Error fetching todo list:', error);
-        return null;  // or you can throw an error if you want to handle it upstream
+        return null;  
     }
 };
 
 export const createTodoList = async (title: string): Promise<void> => {
     try {
         await api.post(`todolist`, {
-            title, 
-           
+            title
         });
     } catch (error) {
         console.error('Error creating todo item:', error);

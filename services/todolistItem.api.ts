@@ -1,4 +1,4 @@
-import axios, { AxiosResponse } from 'axios';
+import axios, { AxiosResponse,AxiosError } from 'axios';
 import { TodoItem } from '../interfaces/interface';
 
 const api = axios.create({
@@ -10,8 +10,13 @@ export const geTodoListItem = async (listId: string): Promise<TodoItem[] | null>
         const res: AxiosResponse<unknown, unknown> = await api.get(`todolist/${listId}/todolistItem`);
         return res.data as TodoItem[];
     } catch (error) {
+        if((error as AxiosError).response?.data === "Not found"){
+            console.error('No item in list created yet');
+            return null; 
+        }else{
         console.error('Error fetching todo list:', error);
         return null; 
+        }
     }
 };
 

@@ -5,7 +5,10 @@ module.exports = {
       '^.+\\.(ts|tsx)$': 'ts-jest', 
     },
     moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'node'], 
+    moduleNameMapper: {
+        '\\.(css|less|scss|sass)$': 'identity-obj-proxy', // Mock CSS imports
+      },
     transformIgnorePatterns: [
-        '/node_modules/(?!react-router-dom|other-esm-module)/' 
+        '/node_modules/' 
       ],
   };

@@ -8,6 +8,14 @@ interface TodoItemCompProps {
   handleDeleteItem: (itemId: string) => void;
 }
 
+export const handleItemToggleLogic = (id: string, completed: boolean, toggleHandler: (id: string, completed: boolean) => void) => {
+  toggleHandler(id, completed);
+};
+
+export const handleDeleteItemLogic = (id: string, deleteHandler: (id: string) => void) => {
+  deleteHandler(id);
+};
+
 export const TodoItemComp: React.FC<TodoItemCompProps> = ({ item, handleItemToggle,handleDeleteItem  }) => {
 
 

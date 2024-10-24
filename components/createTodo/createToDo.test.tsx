@@ -1,8 +1,8 @@
+import React from 'react';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import '@testing-library/jest-dom';
-import { CreateTodoForm } from './createToDo';
+import { CreateTodoForm } from './createToDo';  // Adjust the import path as needed
 import { useTodoItem, useTodoList } from '../../hooks/useTodo';
-import React from 'react';
 
 jest.mock('../../hooks/useTodo');
 
@@ -39,21 +39,24 @@ describe('CreateTodoForm', () => {
     { id: '2', title: 'List 2' },
   ];
 
-  it('renders the CreateTodoForm component', () => {
+  it('renders the form inputs and buttons correctly', () => {
     render(<CreateTodoForm lists={sampleLists} />);
 
-    // Assert the title and form input elements exist
+    // Check if list and item creation forms are rendered
     expect(screen.getByText('Create a New List')).toBeInTheDocument();
     expect(screen.getByPlaceholderText('List Title')).toBeInTheDocument();
+
     expect(screen.getByText('Create a New Item')).toBeInTheDocument();
     expect(screen.getByPlaceholderText('Item Title')).toBeInTheDocument();
+    expect(screen.getByPlaceholderText('Item Description')).toBeInTheDocument();
   });
 
-  it('validates form and shows error when submitting empty item form', async () => {
+  it('displays validation errors when submitting an empty item form', async () => {
     render(<CreateTodoForm lists={sampleLists} />);
 
     fireEvent.click(screen.getByText('Save Item'));
 
+    // Expect the validation error to appear for the item title
     expect(await screen.findByText('Title is required')).toBeInTheDocument();
   });
 
@@ -69,16 +72,12 @@ describe('CreateTodoForm', () => {
       target: { value: 'A description for the task' },
     });
 
-    fireEvent.change(screen.getByPlaceholderText('Item Title'), {
-      target: { value: 'New Task' },
-    });
-
     fireEvent.click(screen.getByText('Save Item'));
 
     // Wait for the mutation to be called
     await waitFor(() =>
       expect(mockCreateItemMutation.mutate).toHaveBeenCalledWith({
-        listId: sampleLists[1].id, // '2' is the default selectedListId
+        listId: sampleLists[1].id,  // '2' is the default selectedListId
         data: {
           title: 'New Task',
           description: 'A description for the task',
@@ -101,6 +100,17 @@ describe('CreateTodoForm', () => {
     await waitFor(() =>
       expect(mockCreateListMutation.mutate).toHaveBeenCalledWith('New List', expect.anything())
     );
+  });
+
+  it('updates selected list when a different list is selected', () => {
+    render(<CreateTodoForm lists={sampleLists} />);
+
+    const selectList = screen.getByLabelText('Select Todo List:');
+    
+    // Change the selected list
+    fireEvent.change(selectList, { target: { value: sampleLists[0].id } });
+
+    expect(selectList).toBe(sampleLists[0].id);
   });
 
 });

@@ -9,21 +9,18 @@ interface TodoListItemCompProps {
 }
 
 export const TodoListComp: React.FC<TodoListItemCompProps> = ({ lists }) => {
-  const [selectedListId, setSelectedListId] = useState<string>(lists[lists.length - 1]?.id ?? "");
+  const [selectedListId, setSelectedListId] = useState<string>(lists[lists.length - 1]?.id);
   const [searchTerm, setSearchTerm] = useState<string>("");
   const { deleteItemMutation, updateItemMutation, todoItems } = useTodoItem(selectedListId);
 
 
-  const [todoListItem, settodoListItem] = useState<TodoItem[]>(todoItems ?? []);
+  const [todoListItem, settodoListItem] = useState<TodoItem[]>(todoItems ?? [] );
   const [filterType, setFilterType] = useState<string>("all");
 
   useEffect(() => {
-    if (typeof document !== "undefined") {
-
-  // const { todoItems } =  useTodoItem(selectedListId);
+      setSelectedListId(lists[lists.length - 1]?.id)
       settodoListItem(todoItems ?? []);
-    }
-  }, [selectedListId]);
+  }, [todoItems,selectedListId,lists]);
 
   const filteredItems = todoListItem.filter(item => {
     const matchesSearchTerm =
